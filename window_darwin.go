@@ -1,4 +1,4 @@
-package statusbar
+package status_bar
 
 /*
 #cgo CFLAGS: -x objective-c

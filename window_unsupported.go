@@ -1,6 +1,6 @@
 // +build !darwin
 
-package statusbar
+package status_bar
 
 import (
 	"image/color"
