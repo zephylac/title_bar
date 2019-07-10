@@ -1,40 +1,63 @@
 package statusbar
 
-/*
-#cgo CFLAGS: -x objective-c
-#cgo LDFLAGS: -framework Cocoa
-#import <Cocoa/Cocoa.h>
-int
-ChangeColor(int redValue, int greenValue, int blueValue, int alphaValue) {
+import (
+	"image/color"
 
-	id window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
-
-	NSColor *myColor = [NSColor colorWithCalibratedRed:redValue green:greenValue blue:blueValue alpha:alphaValue];
-	[window setBackgroundColor: myColor];
-
-    return 0;
-}
-*/
-import "C"
-
-import flutter "github.com/go-flutter-desktop/go-flutter"
-import "github.com/go-flutter-desktop/go-flutter/plugin"
+	flutter "github.com/go-flutter-desktop/go-flutter"
+	"github.com/go-flutter-desktop/go-flutter/plugin"
+	"github.com/pkg/errors"
+)
 
 // TitleBarPlugin implements flutter.Plugin and handles method calls to
 // the plugins.flutter.io/image_picker channel.
-type TitleBarPlugin struct{}
+type TitleBarPlugin struct {
+	BackgroundColor color.RGBA
+	Transparent     bool
+}
+
+const channelName = "plugins.flutter.io/statusbar"
 
 var _ flutter.Plugin = &TitleBarPlugin{} // compile-time type check
 
 // InitPlugin initializes the path provider plugin.
 func (p *TitleBarPlugin) InitPlugin(messenger plugin.BinaryMessenger) error {
-	C.ChangeColor(1, 0, 0, 1)
+	channel := plugin.NewMethodChannel(messenger, channelName, plugin.StandardMethodCodec{})
+	channel.HandleFunc("getstatusbarcolor", p.handleGetStatusBar)
+	channel.HandleFunc("setstatusbarcolor", p.handleSetStatusBar)
+	channel.HandleFunc("setstatusbarwhiteforeground", p.handleSetStatusBarWhiteForeground)
+	channel.HandleFunc("getnavigationbarcolor", p.handleGetNavigationBarColor)
+	channel.HandleFunc("setnavigationbarwhiteforeground", p.handleSetNavigationBarWhiteForeground)
 
 	return nil
 }
 
-/* func (p *TitleBarPlugin) useWhiteForeground(backgroundColor string) (reply bool) {
-	rgba, _ := hex.DecodeString(backgroundColor)
-	// We retrieve luminance from given color
-	return 1.05/(rgba[3]+0.05) > 4.5
-} */
+func (p *TitleBarPlugin) handleGetStatusBar(arguments interface{}) (reply interface{}, err error) {
+	return getStatusBarColor(), nil
+}
+
+func (p *TitleBarPlugin) handleSetStatusBar(arguments interface{}) (reply interface{}, err error) {
+	color := arguments.(map[interface{}]interface{})["color"].(color.RGBA)
+
+	setStatusBarColor(color)
+
+	return nil, nil
+}
+
+func (p *TitleBarPlugin) handleSetStatusBarWhiteForeground(arguments interface{}) (reply interface{}, err error) {
+
+	setStatusBarColor(color.RGBA{255, 255, 255, 255})
+
+	return nil, nil
+}
+
+func (p *TitleBarPlugin) handleGetNavigationBarColor(arguments interface{}) (reply interface{}, err error) {
+	return nil, errors.New("Desktop doesn't have navigation bar")
+}
+
+func (p *TitleBarPlugin) handleSetNavigationBarColor(arguments interface{}) (reply interface{}, err error) {
+	return nil, errors.New("Desktop doesn't have navigation bar")
+}
+
+func (p *TitleBarPlugin) handleSetNavigationBarWhiteForeground(arguments interface{}) (reply interface{}, err error) {
+	return nil, errors.New("Desktop doesn't have navigation bar")
+}
