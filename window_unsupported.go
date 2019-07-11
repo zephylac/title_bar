@@ -8,14 +8,26 @@ import (
 	"github.com/pkg/errors"
 )
 
-func setStatusBarColor(color color.RGBA) (error) {
+func setStatusBarColor(color color.RGBA) error {
 	return errors.New("platform unsupported")
 }
 
-func getStatusBarColor() (error) {
+func getStatusBarColor() error {
 	return errors.New("platform unsupported")
 }
 
-func setTitleTransparency(titleTransparency bool) (error) {
+func setStatusBarTransparency(transparency bool) error {
+	return errors.New("platform unsupported")
+}
+
+func getStatusBarTransparency() bool {
+	return errors.New("platform unsupported")
+}
+
+func hideStatusBar(hideTitle bool) {
+	return errors.New("platform unsupported")
+}
+
+func setStatusBarWidget(close bool, minimize bool) {
 	return errors.New("platform unsupported")
 }

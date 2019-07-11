@@ -40,6 +40,14 @@ GetStatusBarColor(void) {
 
 }
 
+bool
+GetTitleTransparency() {
+
+	id window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
+
+	return [window valueForKey:@"titlebarAppearsTransparent"];
+}
+
 int
 SetTitleTransparency(bool titleTransparency) {
 
@@ -48,6 +56,33 @@ SetTitleTransparency(bool titleTransparency) {
 	[window setTitlebarAppearsTransparent: titleTransparency];
 
     return 0;
+}
+
+
+int
+HideStatusBar(bool hideStatus) {
+	id window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
+
+	if(hideStatus) {
+		[window setStyleMask:NSWindowStyleMaskBorderless];
+	}
+
+	return 0;
+}
+
+int
+SetStatusBarWidget(bool close, bool minimize) {
+	id window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
+
+	if(close && minimize) {
+		[window setStyleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskClosable];
+	} else if(close) {
+		[window setStyleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable];
+	} else if(minimize) {
+		[window setStyleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskMiniaturizable];
+	}
+
+	return 0;
 }
 */
 import "C"
@@ -64,6 +99,18 @@ func getStatusBarColor() color.RGBA {
 	return color.RGBA{uint8(temp.r * 255), uint8(temp.g * 255), uint8(temp.b * 255), uint8(temp.a * 255)}
 }
 
-func setTitleTransparency(titleTransparency bool) {
-	C.SetTitleTransparency(C.bool(titleTransparency))
+func setStatusBarTransparency(transparency bool) {
+	C.SetTitleTransparency(C.bool(transparency))
+}
+
+func getStatusBarTransparency() bool {
+	return bool(C.GetTitleTransparency())
+}
+
+func hideStatusBar(hideStatusbar bool) {
+	C.HideStatusBar(C.bool(hideStatusbar))
+}
+
+func setStatusBarWidget(close bool, minimize bool) {
+	C.SetStatusBarWidget(C.bool(close), C.bool(minimize))
 }
