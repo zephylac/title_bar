@@ -5,37 +5,32 @@ import (
 
 	flutter "github.com/go-flutter-desktop/go-flutter"
 	"github.com/go-flutter-desktop/go-flutter/plugin"
-	"github.com/pkg/errors"
 )
 
-// StatusBarPlugin implements flutter.Plugin and handles method calls to
-// the plugins.flutter.io/image_picker channel.
-type StatusBarPlugin struct {
-	BackgroundColor color.RGBA
-	Transparent     bool
-}
+type StatusBarPlugin struct{}
 
 const channelName = "plugins.flutter.io/statusbar"
 
 var _ flutter.Plugin = &StatusBarPlugin{} // compile-time type check
 
-// InitPlugin initializes the path provider plugin.
+// InitPlugin initializes the status bar plugin.
 func (p *StatusBarPlugin) InitPlugin(messenger plugin.BinaryMessenger) error {
 	channel := plugin.NewMethodChannel(messenger, channelName, plugin.StandardMethodCodec{})
-	channel.HandleFunc("getstatusbarcolor", p.handleGetStatusBar)
-	channel.HandleFunc("setstatusbarcolor", p.handleSetStatusBar)
-	channel.HandleFunc("setstatusbarwhiteforeground", p.handleSetStatusBarWhiteForeground)
-	channel.HandleFunc("getnavigationbarcolor", p.handleGetNavigationBarColor)
-	channel.HandleFunc("setnavigationbarwhiteforeground", p.handleSetNavigationBarWhiteForeground)
+	channel.HandleFunc("getstatusbarcolor", p.handleGetStatusBarColor)
+	channel.HandleFunc("setstatusbarcolor", p.handleSetStatusBarColor)
+	channel.HandleFunc("getstatusbartransparency", p.handleGetStatusBarTransparency)
+	channel.HandleFunc("setstatusbartransparency", p.handleSetStatusBarTransparency)
+	channel.HandleFunc("hidestatusrar", p.handleHideStatusBar)
+	channel.HandleFunc("setstatusbarwidget", p.handleSetStatusBarWidget)
 
 	return nil
 }
 
-func (p *StatusBarPlugin) handleGetStatusBar(arguments interface{}) (reply interface{}, err error) {
+func (p *StatusBarPlugin) handleGetStatusBarColor(arguments interface{}) (reply interface{}, err error) {
 	return getStatusBarColor(), nil
 }
 
-func (p *StatusBarPlugin) handleSetStatusBar(arguments interface{}) (reply interface{}, err error) {
+func (p *StatusBarPlugin) handleSetStatusBarColor(arguments interface{}) (reply interface{}, err error) {
 	color := arguments.(map[interface{}]interface{})["color"].(color.RGBA)
 
 	setStatusBarColor(color)
@@ -43,21 +38,31 @@ func (p *StatusBarPlugin) handleSetStatusBar(arguments interface{}) (reply inter
 	return nil, nil
 }
 
-func (p *StatusBarPlugin) handleSetStatusBarWhiteForeground(arguments interface{}) (reply interface{}, err error) {
+func (p *StatusBarPlugin) handleGetStatusBarTransparency(arguments interface{}) (reply interface{}, err error) {
+	return getStatusBarTransparency(), nil
+}
 
-	setStatusBarColor(color.RGBA{255, 255, 255, 255})
+func (p *StatusBarPlugin) handleSetStatusBarTransparency(arguments interface{}) (reply interface{}, err error) {
+	transparency := arguments.(map[interface{}]interface{})["transparency"].(bool)
+
+	setStatusBarTransparency(transparency)
 
 	return nil, nil
 }
 
-func (p *StatusBarPlugin) handleGetNavigationBarColor(arguments interface{}) (reply interface{}, err error) {
-	return nil, errors.New("Desktop doesn't have navigation bar")
+func (p *StatusBarPlugin) handleHideStatusBar(arguments interface{}) (reply interface{}, err error) {
+	hide := arguments.(map[interface{}]interface{})["hide"].(bool)
+
+	hideStatusBar(hide)
+
+	return nil, nil
 }
 
-func (p *StatusBarPlugin) handleSetNavigationBarColor(arguments interface{}) (reply interface{}, err error) {
-	return nil, errors.New("Desktop doesn't have navigation bar")
-}
+func (p *StatusBarPlugin) handleSetStatusBarWidget(arguments interface{}) (reply interface{}, err error) {
+	close := arguments.(map[interface{}]interface{})["close"].(bool)
+	minimize := arguments.(map[interface{}]interface{})["minimize"].(bool)
 
-func (p *StatusBarPlugin) handleSetNavigationBarWhiteForeground(arguments interface{}) (reply interface{}, err error) {
-	return nil, errors.New("Desktop doesn't have navigation bar")
+	setStatusBarWidget(close, minimize)
+
+	return nil, nil
 }
