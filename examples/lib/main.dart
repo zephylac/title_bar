@@ -31,10 +31,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-    int _red = 128;
-    int _blue = 128;
-    int _green = 128;
-    int _alpha = 128;
+    int _red = 255;
+    int _blue = 255;
+    int _green = 255;
+    int _alpha = 255;
 
     bool _hide = false;
     bool _close = true;
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               new Text(
-              "Red",
+                "Red: $_red",
                 style: new TextStyle(fontSize:12.0,
                 color: const Color(0xFFff0000),
                 fontWeight: FontWeight.w200,
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
               new Slider(key: null, onChanged: sliderRedChanged, min: 0, max: 255 ,value:_red.toDouble(),),
     
               new Text(
-              "Blue",
+              "Blue: $_blue",
                 style: new TextStyle(fontSize:12.0,
                 color: const Color(0xFF001aff),
                 fontWeight: FontWeight.w200,
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
               new Slider(key: null, onChanged: sliderBlueChanged, min: 0, max: 255 ,value:_blue.toDouble(),),
     
               new Text(
-              "Green",
+              "Green: $_green",
                 style: new TextStyle(fontSize:12.0,
                 color: const Color(0xFF4dff00),
                 fontWeight: FontWeight.w200,
@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
               new Slider(key: null, onChanged: sliderGreenChanged, min: 0, max: 255 ,value:_green.toDouble(),),
 
               new Text(
-              "Alpha",
+              "Alpha $_alpha",
                 style: new TextStyle(fontSize:12.0,
                 color: const Color(0xFF000000),
                 fontWeight: FontWeight.w200,

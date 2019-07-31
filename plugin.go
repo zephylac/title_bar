@@ -20,8 +20,9 @@ func (p *StatusBarPlugin) InitPlugin(messenger plugin.BinaryMessenger) error {
 	channel.HandleFunc("setstatusbarcolor", p.handleSetStatusBarColor)
 	channel.HandleFunc("getstatusbartransparency", p.handleGetStatusBarTransparency)
 	channel.HandleFunc("setstatusbartransparency", p.handleSetStatusBarTransparency)
-	channel.HandleFunc("hidestatusrar", p.handleHideStatusBar)
 	channel.HandleFunc("setstatusbarwidget", p.handleSetStatusBarWidget)
+
+	setStatusBarTransparency(true)
 
 	return nil
 }
@@ -31,9 +32,12 @@ func (p *StatusBarPlugin) handleGetStatusBarColor(arguments interface{}) (reply 
 }
 
 func (p *StatusBarPlugin) handleSetStatusBarColor(arguments interface{}) (reply interface{}, err error) {
-	color := arguments.(map[interface{}]interface{})["color"].(color.RGBA)
+	red := arguments.(map[interface{}]interface{})["red"].(int32)
+	green := arguments.(map[interface{}]interface{})["green"].(int32)
+	blue := arguments.(map[interface{}]interface{})["blue"].(int32)
+	alpha := arguments.(map[interface{}]interface{})["alpha"].(int32)
 
-	setStatusBarColor(color)
+	setStatusBarColor(color.RGBA{uint8(red), uint8(green), uint8(blue), uint8(alpha)})
 
 	return nil, nil
 }
@@ -50,19 +54,13 @@ func (p *StatusBarPlugin) handleSetStatusBarTransparency(arguments interface{}) 
 	return nil, nil
 }
 
-func (p *StatusBarPlugin) handleHideStatusBar(arguments interface{}) (reply interface{}, err error) {
-	hide := arguments.(map[interface{}]interface{})["hide"].(bool)
-
-	hideStatusBar(hide)
-
-	return nil, nil
-}
-
 func (p *StatusBarPlugin) handleSetStatusBarWidget(arguments interface{}) (reply interface{}, err error) {
+	hide := arguments.(map[interface{}]interface{})["hide"].(bool)
 	close := arguments.(map[interface{}]interface{})["close"].(bool)
 	minimize := arguments.(map[interface{}]interface{})["minimize"].(bool)
+	resize := arguments.(map[interface{}]interface{})["resize"].(bool)
 
-	setStatusBarWidget(close, minimize)
+	setStatusBarWidget(hide, close, minimize, resize)
 
 	return nil, nil
 }

@@ -15,10 +15,10 @@ struct RGBA {
 int
 SetStatusBarColor(float redValue, float greenValue, float blueValue, float alphaValue) {
 
-	id window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
-
+	NSWindow *window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
 	NSColor *myColor = [NSColor colorWithCalibratedRed:redValue green:greenValue blue:blueValue alpha:alphaValue];
-	[window setBackgroundColor: myColor];
+
+	window.backgroundColor = myColor;
 
     return 0;
 }
@@ -51,35 +51,39 @@ GetTitleTransparency() {
 int
 SetTitleTransparency(bool titleTransparency) {
 
-	id window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
+	NSWindow *window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
 
-	[window setTitlebarAppearsTransparent: titleTransparency];
+	window.titlebarAppearsTransparent =  titleTransparency;
 
     return 0;
 }
 
-
 int
-HideStatusBar(bool hideStatus) {
-	id window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
+SetStatusBarWidget(bool hide, bool close, bool minimize, bool resize) {
+	NSWindow *window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
 
-	if(hideStatus) {
-		[window setStyleMask:NSWindowStyleMaskBorderless];
-	}
+	if (hide) {
+		window.styleMask = NSWindowStyleMaskBorderless;
+	} else {
+		window.styleMask = NSWindowStyleMaskTitled | NSFullSizeContentViewWindowMask;
 
-	return 0;
-}
+		if (close) {
+			window.styleMask |= NSWindowStyleMaskClosable;
+		} else {
+			window.styleMask &= ~NSWindowStyleMaskClosable;
+		}
 
-int
-SetStatusBarWidget(bool close, bool minimize) {
-	id window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
+		if (minimize) {
+			window.styleMask |= NSWindowStyleMaskMiniaturizable;
+		} else {
+			window.styleMask &= ~NSWindowStyleMaskMiniaturizable;
+		}
 
-	if(close && minimize) {
-		[window setStyleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskClosable];
-	} else if(close) {
-		[window setStyleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable];
-	} else if(minimize) {
-		[window setStyleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskMiniaturizable];
+		if (resize) {
+			window.styleMask |= NSWindowStyleMaskResizable;
+		} else {
+			window.styleMask &= ~NSWindowStyleMaskResizable;
+		}
 	}
 
 	return 0;
@@ -107,10 +111,6 @@ func getStatusBarTransparency() bool {
 	return bool(C.GetTitleTransparency())
 }
 
-func hideStatusBar(hideStatusbar bool) {
-	C.HideStatusBar(C.bool(hideStatusbar))
-}
-
-func setStatusBarWidget(close bool, minimize bool) {
-	C.SetStatusBarWidget(C.bool(close), C.bool(minimize))
+func setStatusBarWidget(hide bool, close bool, minimize bool, resize bool) {
+	C.SetStatusBarWidget(C.bool(hide), C.bool(close), C.bool(minimize), C.bool(resize))
 }
