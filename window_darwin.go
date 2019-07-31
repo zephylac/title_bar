@@ -1,4 +1,4 @@
-package titlebar
+package title_bar
 
 /*
 #cgo CFLAGS: -x objective-c

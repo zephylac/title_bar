@@ -1,4 +1,4 @@
-module github.com/zephylac/titlebar
+module github.com/zephylac/title_bar
 
 go 1.12
 

@@ -13,7 +13,7 @@ Note: This plugin is still under development, and some APIs might not be availab
 Import as:
 
 ```go
-import "github.com/zephylac/titlebar"
+import "github.com/zephylac/title_bar"
 ```
 
 Then add the following option to your go-flutter [application options](https://github.com/go-flutter-desktop/go-flutter/wiki/Plugin-info):
