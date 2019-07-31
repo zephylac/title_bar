@@ -1,5 +1,7 @@
 # title_bar
 
+[![pub package](https://img.shields.io/pub/v/title_bar.svg)](https://pub.dartlang.org/packages/title_bar)
+
 A Flutter plugin for go-flutter, available for MacOS. It will allow you to customize your title bar by changing the color, name, hiding it, etc.
 
 Note: This plugin is still under development, and some APIs might not be available yet. Feedback welcome and Pull Requests are most welcome!
