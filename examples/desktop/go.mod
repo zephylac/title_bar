@@ -10,4 +10,5 @@ require (
 	github.com/zephylac/go-flutter-plugin-statusbar/status_bar v0.0.0-00010101000000-000000000000
 )
 
-replace github.com/zephylac/go-flutter-plugin-statusbar/status_bar => ../../../go-flutter-plugin-statusbar
+// Uncomment to use local version
+//replace github.com/zephylac/go-flutter-plugin-statusbar/status_bar => ../../../go-flutter-plugin-statusbar
