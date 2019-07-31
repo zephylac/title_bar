@@ -6,10 +6,10 @@ package title_bar
 #import <Cocoa/Cocoa.h>
 
 struct RGBA {
-	float r;
-	float g;
-	float b;
-	float a;
+	float red;
+	float green;
+	float blue;
+	float alpha;
 };
 
 int
@@ -31,10 +31,10 @@ GetTitleBarColor(void) {
 
 	struct RGBA rgba;
 
-	rgba.r = [bg redComponent];
-	rgba.g = [bg greenComponent];
-	rgba.b = [bg blueComponent];
-	rgba.a = [bg alphaComponent];
+	rgba.red = [bg redComponent];
+	rgba.green = [bg greenComponent];
+	rgba.blue = [bg blueComponent];
+	rgba.alpha = [bg alphaComponent];
 
 	return rgba;
 
@@ -65,7 +65,7 @@ SetTitleBarWidget(bool hide, bool close, bool minimize, bool resize) {
 	if (hide) {
 		window.styleMask = NSWindowStyleMaskBorderless;
 	} else {
-		window.styleMask = NSWindowStyleMaskTitled | NSFullSizeContentViewWindowMask;
+		window.styleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskFullScreen;
 
 		if (close) {
 			window.styleMask |= NSWindowStyleMaskClosable;
@@ -91,16 +91,14 @@ SetTitleBarWidget(bool hide, bool close, bool minimize, bool resize) {
 */
 import "C"
 
-import "image/color"
-
-func setTitleBarColor(color color.RGBA) {
-	C.SetTitleBarColor(C.float(float64(color.R)/255), C.float(float64(color.G)/255), C.float(float64(color.B)/255), C.float(float64(color.A)/255))
+func setTitleBarColor(color color) {
+	C.SetTitleBarColor(C.float(float64(color.red)/255), C.float(float64(color.green)/255), C.float(float64(color.blue)/255), C.float(float64(color.alpha)/255))
 }
 
-func getTitleBarColor() color.RGBA {
+func getTitleBarColor() color {
 	temp := C.GetTitleBarColor()
 
-	return {"red" : int32(temp.r * 255), "green" : int32(temp.g * 255), "blue" : int32(temp.b * 255), "alpha" : int32(temp.a * 255) }
+	return color{red: int32(temp.red * 255), green: int32(temp.green * 255), blue: int32(temp.blue * 255), alpha: int32(temp.alpha * 255)}
 }
 
 func setTitleBarTransparency(transparency bool) {

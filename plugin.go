@@ -1,8 +1,6 @@
 package title_bar
 
 import (
-	"image/color"
-
 	flutter "github.com/go-flutter-desktop/go-flutter"
 	"github.com/go-flutter-desktop/go-flutter/plugin"
 )
@@ -14,6 +12,14 @@ type TitleBarPlugin struct{}
 const channelName = "plugins.flutter.io/titlebar"
 
 var _ flutter.Plugin = &TitleBarPlugin{} // compile-time type check
+
+// Color struct
+type color struct {
+	alpha int32
+	red   int32
+	green int32
+	blue  int32
+}
 
 // InitPlugin initializes the title bar plugin.
 func (p *TitleBarPlugin) InitPlugin(messenger plugin.BinaryMessenger) error {
@@ -39,7 +45,7 @@ func (p *TitleBarPlugin) handleSetTitleBarColor(arguments interface{}) (reply in
 	blue := arguments.(map[interface{}]interface{})["blue"].(int32)
 	alpha := arguments.(map[interface{}]interface{})["alpha"].(int32)
 
-	setTitleBarColor(color.RGBA{uint8(red), uint8(green), uint8(blue), uint8(alpha)})
+	setTitleBarColor(color{red: int32(red), green: int32(green), blue: (blue), alpha: (alpha)})
 
 	return nil, nil
 }
