@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-const platform_channel_titlebarcolor =
-    const MethodChannel('plugins.flutter.io/titlebar');
+import 'package:title_bar/flutter_titlebar.dart';
 
 void main() {
   runApp(new TitleBarApp());
@@ -141,43 +138,41 @@ class _MyHomePageState extends State<MyHomePage> {
     
     void sliderRedChanged(double value) async {
       setState(() => _red = value.round());
-      await platform_channel_titlebarcolor.invokeMethod('settitlebarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
+      FlutterTitleBar.setTitleBarColor(Color.fromARGB(_alpha, _red, _green, _blue));
     }
 
     void sliderBlueChanged(double value) async {
       setState(() => _blue = value.round());
-      await platform_channel_titlebarcolor.invokeMethod('settitlebarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
+      FlutterTitleBar.setTitleBarColor(Color.fromARGB(_alpha, _red, _green, _blue));
     }
 
     void sliderGreenChanged(double value) async {
       setState(() => _green = value.round());
-      await platform_channel_titlebarcolor.invokeMethod('settitlebarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
+      FlutterTitleBar.setTitleBarColor(Color.fromARGB(_alpha, _red, _green, _blue));
     }
     
     void sliderAlphaChanged(double value) async {
       setState(() => _alpha = value.round());
-      await platform_channel_titlebarcolor.invokeMethod('settitlebarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
+      FlutterTitleBar.setTitleBarColor(Color.fromARGB(_alpha, _red, _green, _blue));
     }
 
     void switchHideTitleBarChanged(bool value) async {
       setState(() => _hide = value);
-      await platform_channel_titlebarcolor.invokeMethod('settitlebarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
+      FlutterTitleBar.setTitleBarWidget(_hide, _close, _minimize, _resize);
     }
 
     void switchHideCloseChanged(bool value) async {
       setState(() => _close = value);
-      await platform_channel_titlebarcolor.invokeMethod('settitlebarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
+      FlutterTitleBar.setTitleBarWidget(_hide, _close, _minimize, _resize);
     }
 
     void switchHideMinimizeChanged(bool value) async {
       setState(() => _minimize = value);
-      await platform_channel_titlebarcolor.invokeMethod('settitlebarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
-
+      FlutterTitleBar.setTitleBarWidget(_hide, _close, _minimize, _resize);
     }
     
     void switchHideResizeChanged(bool value) async {
       setState(() => _resize = value);
-      await platform_channel_titlebarcolor.invokeMethod('settitlebarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
-
+      FlutterTitleBar.setTitleBarWidget(_hide, _close, _minimize, _resize);
     }
 }
