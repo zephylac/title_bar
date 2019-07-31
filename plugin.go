@@ -1,4 +1,4 @@
-package title_bar
+package titlebar
 
 import (
 	"image/color"
@@ -7,6 +7,8 @@ import (
 	"github.com/go-flutter-desktop/go-flutter/plugin"
 )
 
+// TitleBarPlugin handles method calls to
+// the plugins.flutter.io/titlebar channel.
 type TitleBarPlugin struct{}
 
 const channelName = "plugins.flutter.io/titlebar"

@@ -1,4 +1,4 @@
-package title_bar
+package titlebar
 
 /*
 #cgo CFLAGS: -x objective-c
@@ -100,7 +100,7 @@ func setTitleBarColor(color color.RGBA) {
 func getTitleBarColor() color.RGBA {
 	temp := C.GetTitleBarColor()
 
-	return color.RGBA{uint8(temp.r * 255), uint8(temp.g * 255), uint8(temp.b * 255), uint8(temp.a * 255)}
+	return {"red" : int32(temp.r * 255), "green" : int32(temp.g * 255), "blue" : int32(temp.b * 255), "alpha" : int32(temp.a * 255) }
 }
 
 func setTitleBarTransparency(transparency bool) {
