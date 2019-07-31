@@ -10,4 +10,4 @@ require (
 )
 
 // Uncomment to use local version
-//replace github.com/zephylac/title_bar => ../../../titlebar
+// replace github.com/zephylac/title_bar => ../../../title_bar
