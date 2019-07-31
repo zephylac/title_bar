@@ -3,16 +3,14 @@
 package title_bar
 
 import (
-	"image/color"
-
 	"github.com/pkg/errors"
 )
 
-func setTitleBarColor(color color.RGBA) {
+func setTitleBarColor(color color) {
 	return errors.New("platform unsupported")
 }
 
-func getTitleBarColor() color.RGBA {
+func getTitleBarColor() color {
 	return errors.New("platform unsupported")
 }
 
