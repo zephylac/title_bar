@@ -7,8 +7,8 @@ require (
 	github.com/go-flutter-desktop/plugins/image_picker v0.1.2
 	github.com/pkg/errors v0.8.1
 	github.com/stretchr/objx v0.2.0 // indirect
-	github.com/zephylac/status_bar v0.0.0-00010101000000-000000000000
+	github.com/zephylac/title_bar v0.0.0-00010101000000-000000000000
 )
 
 // Uncomment to use local version
-//replace github.com/zephylac/status_bar => ../../../statusbar
+//replace github.com/zephylac/title_bar => ../../../titlebar

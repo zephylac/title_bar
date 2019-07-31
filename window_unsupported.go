@@ -1,6 +1,6 @@
 // +build !darwin
 
-package status_bar
+package title_bar
 
 import (
 	"image/color"
