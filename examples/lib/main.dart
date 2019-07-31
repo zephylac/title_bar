@@ -5,9 +5,9 @@ const platform_channel_titlebarcolor =
     const MethodChannel('plugins.flutter.io/titlebar');
 
 void main() {
-  runApp(new StatusBarApp());
+  runApp(new TitleBarApp());
 }
-class StatusBarApp extends StatelessWidget {
+class TitleBarApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontFamily: "Roboto"),
               ),
     
-              new Switch(onChanged: switchHideStatusBarChanged, value:_hide),
+              new Switch(onChanged: switchHideTitleBarChanged, value:_hide),
     
               new Text(
               "Hide close",
@@ -159,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
       await platform_channel_titlebarcolor.invokeMethod('settitlebarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
     }
 
-    void switchHideStatusBarChanged(bool value) async {
+    void switchHideTitleBarChanged(bool value) async {
       setState(() => _hide = value);
       await platform_channel_titlebarcolor.invokeMethod('settitlebarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
     }

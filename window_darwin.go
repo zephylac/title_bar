@@ -13,7 +13,7 @@ struct RGBA {
 };
 
 int
-SetStatusBarColor(float redValue, float greenValue, float blueValue, float alphaValue) {
+SetTitleBarColor(float redValue, float greenValue, float blueValue, float alphaValue) {
 
 	NSWindow *window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
 	NSColor *myColor = [NSColor colorWithCalibratedRed:redValue green:greenValue blue:blueValue alpha:alphaValue];
@@ -24,7 +24,7 @@ SetStatusBarColor(float redValue, float greenValue, float blueValue, float alpha
 }
 
 struct RGBA
-GetStatusBarColor(void) {
+GetTitleBarColor(void) {
 
 	NSWindow *window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
 	NSColor *bg =  [window valueForKey:@"backgroundColor"];
@@ -59,7 +59,7 @@ SetTitleTransparency(bool titleTransparency) {
 }
 
 int
-SetStatusBarWidget(bool hide, bool close, bool minimize, bool resize) {
+SetTitleBarWidget(bool hide, bool close, bool minimize, bool resize) {
 	NSWindow *window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
 
 	if (hide) {
@@ -93,24 +93,24 @@ import "C"
 
 import "image/color"
 
-func setStatusBarColor(color color.RGBA) {
-	C.SetStatusBarColor(C.float(float64(color.R)/255), C.float(float64(color.G)/255), C.float(float64(color.B)/255), C.float(float64(color.A)/255))
+func setTitleBarColor(color color.RGBA) {
+	C.SetTitleBarColor(C.float(float64(color.R)/255), C.float(float64(color.G)/255), C.float(float64(color.B)/255), C.float(float64(color.A)/255))
 }
 
-func getStatusBarColor() color.RGBA {
-	temp := C.GetStatusBarColor()
+func getTitleBarColor() color.RGBA {
+	temp := C.GetTitleBarColor()
 
 	return color.RGBA{uint8(temp.r * 255), uint8(temp.g * 255), uint8(temp.b * 255), uint8(temp.a * 255)}
 }
 
-func setStatusBarTransparency(transparency bool) {
+func setTitleBarTransparency(transparency bool) {
 	C.SetTitleTransparency(C.bool(transparency))
 }
 
-func getStatusBarTransparency() bool {
+func getTitleBarTransparency() bool {
 	return bool(C.GetTitleTransparency())
 }
 
-func setStatusBarWidget(hide bool, close bool, minimize bool, resize bool) {
-	C.SetStatusBarWidget(C.bool(hide), C.bool(close), C.bool(minimize), C.bool(resize))
+func setTitleBarWidget(hide bool, close bool, minimize bool, resize bool) {
+	C.SetTitleBarWidget(C.bool(hide), C.bool(close), C.bool(minimize), C.bool(resize))
 }

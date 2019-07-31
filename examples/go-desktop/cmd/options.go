@@ -7,5 +7,5 @@ import (
 
 var options = []flutter.Option{
 	flutter.WindowInitialDimensions(800, 1280),
-	flutter.AddPlugin(&title_bar.StatusBarPlugin{}),
+	flutter.AddPlugin(&title_bar.TitleBarPlugin{}),
 }
