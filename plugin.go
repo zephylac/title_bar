@@ -1,4 +1,4 @@
-package titlebar
+package title_bar
 
 import (
 	"image/color"
