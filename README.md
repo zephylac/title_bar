@@ -1,6 +1,8 @@
 # title_bar
 
 [![pub package](https://img.shields.io/pub/v/title_bar.svg)](https://pub.dartlang.org/packages/title_bar)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Documentation](https://godoc.org/github.com/zephylac/title_bar?status.svg)](http://godoc.org/github.com/zephylac/title_bar)
 
 A Flutter plugin for go-flutter, available for MacOS. It will allow you to customize your title bar by changing the color, name, hiding it, etc.
 
@@ -19,6 +21,10 @@ Then add the following option to your go-flutter [application options](https://g
 ```go
 flutter.AddPlugin(&title_bar.TitleBarPlugin{}),
 ```
+
+## More info
+
+If you want to check the current development status go check [here](https://github.com/zephylac/title_bar/projects/1)
 
 ## Issues
 
