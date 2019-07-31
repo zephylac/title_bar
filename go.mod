@@ -1,4 +1,4 @@
-module github.com/zephylac/go-flutter-plugin-statusbar/status_bar
+module github.com/zephylac/status_bar
 
 go 1.12
 

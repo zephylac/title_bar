@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/go-flutter-desktop/go-flutter"
-	"github.com/zephylac/go-flutter-plugin-statusbar/status_bar"
+	"github.com/zephylac/status_bar"
 )
 
 var options = []flutter.Option{
