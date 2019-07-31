@@ -1,6 +1,6 @@
 // +build !darwin
 
-package title_bar
+package titlebar
 
 import (
 	"image/color"
