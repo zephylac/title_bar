@@ -1,6 +1,6 @@
 // +build !darwin
 
-package status_bar
+package title_bar
 
 import (
 	"image/color"
@@ -8,26 +8,22 @@ import (
 	"github.com/pkg/errors"
 )
 
-func setStatusBarColor(color color.RGBA) error {
+func setTitleBarColor(color color.RGBA) {
 	return errors.New("platform unsupported")
 }
 
-func getStatusBarColor() error {
+func getTitleBarColor() color.RGBA {
 	return errors.New("platform unsupported")
 }
 
-func setStatusBarTransparency(transparency bool) error {
+func setTitleBarTransparency(transparency bool) {
 	return errors.New("platform unsupported")
 }
 
-func getStatusBarTransparency() bool {
+func getTitleBarTransparency() bool {
 	return errors.New("platform unsupported")
 }
 
-func hideStatusBar(hideTitle bool) {
-	return errors.New("platform unsupported")
-}
-
-func setStatusBarWidget(close bool, minimize bool) {
+func setTitleBarWidget(hide bool, close bool, minimize bool, resize bool) {
 	return errors.New("platform unsupported")
 }

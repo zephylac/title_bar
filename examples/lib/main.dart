@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-const platform_channel_statusbarcolor =
-    const MethodChannel('plugins.flutter.io/statusbar');
+const platform_channel_titlebarcolor =
+    const MethodChannel('plugins.flutter.io/titlebar');
 
 void main() {
-  runApp(new StatusBarApp());
+  runApp(new TitleBarApp());
 }
-class StatusBarApp extends StatelessWidget {
+class TitleBarApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget build(BuildContext context) {
       return new Scaffold(
         appBar: new AppBar(
-          title: new Text('Example status bar'),
+          title: new Text('Example title bar'),
           ),
         body:
           new Column(
@@ -94,14 +94,14 @@ class _MyHomePageState extends State<MyHomePage> {
               new Slider(key: null, onChanged: sliderAlphaChanged, min: 0, max: 255 ,value:_alpha.toDouble(),),
 
               new Text(
-              "Hide status bar",
+              "Hide title bar",
                 style: new TextStyle(fontSize:12.0,
                 color: const Color(0xFF000000),
                 fontWeight: FontWeight.w200,
                 fontFamily: "Roboto"),
               ),
     
-              new Switch(onChanged: switchHideStatusBarChanged, value:_hide),
+              new Switch(onChanged: switchHideTitleBarChanged, value:_hide),
     
               new Text(
               "Hide close",
@@ -141,43 +141,43 @@ class _MyHomePageState extends State<MyHomePage> {
     
     void sliderRedChanged(double value) async {
       setState(() => _red = value.round());
-      await platform_channel_statusbarcolor.invokeMethod('setstatusbarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
+      await platform_channel_titlebarcolor.invokeMethod('settitlebarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
     }
 
     void sliderBlueChanged(double value) async {
       setState(() => _blue = value.round());
-      await platform_channel_statusbarcolor.invokeMethod('setstatusbarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
+      await platform_channel_titlebarcolor.invokeMethod('settitlebarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
     }
 
     void sliderGreenChanged(double value) async {
       setState(() => _green = value.round());
-      await platform_channel_statusbarcolor.invokeMethod('setstatusbarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
+      await platform_channel_titlebarcolor.invokeMethod('settitlebarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
     }
     
     void sliderAlphaChanged(double value) async {
       setState(() => _alpha = value.round());
-      await platform_channel_statusbarcolor.invokeMethod('setstatusbarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
+      await platform_channel_titlebarcolor.invokeMethod('settitlebarcolor', {"alpha":_alpha, "red":_red, "green":_green, "blue":_blue});
     }
 
-    void switchHideStatusBarChanged(bool value) async {
+    void switchHideTitleBarChanged(bool value) async {
       setState(() => _hide = value);
-      await platform_channel_statusbarcolor.invokeMethod('setstatusbarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
+      await platform_channel_titlebarcolor.invokeMethod('settitlebarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
     }
 
     void switchHideCloseChanged(bool value) async {
       setState(() => _close = value);
-      await platform_channel_statusbarcolor.invokeMethod('setstatusbarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
+      await platform_channel_titlebarcolor.invokeMethod('settitlebarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
     }
 
     void switchHideMinimizeChanged(bool value) async {
       setState(() => _minimize = value);
-      await platform_channel_statusbarcolor.invokeMethod('setstatusbarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
+      await platform_channel_titlebarcolor.invokeMethod('settitlebarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
 
     }
     
     void switchHideResizeChanged(bool value) async {
       setState(() => _resize = value);
-      await platform_channel_statusbarcolor.invokeMethod('setstatusbarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
+      await platform_channel_titlebarcolor.invokeMethod('settitlebarwidget', {"hide": _hide, "close":_close, "minimize":_minimize, "resize":_resize});
 
     }
 }

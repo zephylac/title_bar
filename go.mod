@@ -1,8 +1,5 @@
-module github.com/zephylac/go-flutter-plugin-statusbar/status_bar
+module github.com/zephylac/title_bar
 
 go 1.12
 
-require (
-	github.com/go-flutter-desktop/go-flutter v0.24.1
-	github.com/pkg/errors v0.8.1
-)
+require github.com/go-flutter-desktop/go-flutter v0.27.0
