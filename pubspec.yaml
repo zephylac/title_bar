@@ -4,7 +4,7 @@ author: zephylac
 homepage: https://github.com/zephylac/title_bar/
 repository: https://github.com/zephylac/title_bar/
 issue_tracker: https://github.com/zephylac/title_bar/issues/
-version: 0.1.0
+version: 0.2.0
 
 dependencies:
   flutter:
