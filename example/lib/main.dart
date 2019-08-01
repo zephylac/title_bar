@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:title_bar/flutter_titlebar.dart';
+import 'package:title_bar/title_bar.dart';
 
 void main() {
   runApp(new TitleBarApp());
