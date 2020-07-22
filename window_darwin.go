@@ -63,9 +63,11 @@ SetTitleBarWidget(bool hide, bool close, bool minimize, bool resize) {
 	NSWindow *window = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
 
 	if (hide) {
-		window.styleMask = NSWindowStyleMaskBorderless;
+		window.styleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskFullSizeContentView;
+		//window.titleVisibility = false;
 	} else {
-		window.styleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskFullScreen;
+		window.styleMask = NSWindowStyleMaskTitled;
+		//window.titleVisibility = true;
 
 		if (close) {
 			window.styleMask |= NSWindowStyleMaskClosable;
@@ -80,8 +82,10 @@ SetTitleBarWidget(bool hide, bool close, bool minimize, bool resize) {
 		}
 
 		if (resize) {
+			[[window standardWindowButton:NSWindowZoomButton] setEnabled:true];
 			window.styleMask |= NSWindowStyleMaskResizable;
 		} else {
+			[[window standardWindowButton:NSWindowZoomButton] setEnabled:false];
 			window.styleMask &= ~NSWindowStyleMaskResizable;
 		}
 	}
